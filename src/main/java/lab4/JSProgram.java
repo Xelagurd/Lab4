@@ -1,7 +1,9 @@
 package lab4;
 
+import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.List;
 
 public class JSProgram {
@@ -74,6 +76,22 @@ public class JSProgram {
             sTests += t.toString() + "\n";
         }
         return packageId + "  " + jsScript + "  " + functionName + "\n" + sTests;
+    }
+
+    public String run() {
+        try {
+            engine.eval(jsScript);
+            Invocable invocable = (Invocable) engine;
+            try {
+                Object res = invocable.invokeFunction(functionName, test.getParams().toArray());
+                return res.toString();
+            } catch (java.lang.NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

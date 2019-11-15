@@ -19,4 +19,14 @@ public class MasterActor extends AbstractActor {
         storage = getContext().actorOf(Props.create(StorageActor.class));
     }
 
+    @Override
+    public Receive createReceive() {
+        return ReceiveBuilder.create()
+                .match(JSProgram.class, m -> {
+                })
+                .match(GetMessage.class, req -> storage.tell(
+                        req, sender()))
+                .build();
+    }
+
 }

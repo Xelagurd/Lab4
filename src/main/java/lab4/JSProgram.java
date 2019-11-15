@@ -26,3 +26,54 @@ public class JSProgram {
         functionName = prog.getFunctionName();
         tests = prog.getTests();
     }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
+    public void setPackageId(String packageId) {
+        this.packageId = packageId;
+    }
+
+    public void setJsScript(String jsScript) {
+        this.jsScript = jsScript;
+    }
+
+    public void setFunctionName(String functionName) {
+        this.functionName = functionName;
+    }
+
+    public void setTests(List<Test> tests) {
+        this.tests = tests;
+    }
+
+    public Test getTest() {
+        return test;
+    }
+
+    public String getPackageId() {
+        return packageId;
+    }
+
+    public String getJsScript() {
+        return jsScript;
+    }
+
+    public String getFunctionName() {
+        return functionName;
+    }
+
+    public List<Test> getTests() {
+        return tests;
+    }
+
+
+    public String toString() {
+        String sTests = "";
+        for (Test t : tests) {
+            sTests += t.toString() + "\n";
+        }
+        return packageId + "  " + jsScript + "  " + functionName + "\n" + sTests;
+    }
+
+}

@@ -11,4 +11,12 @@ public class MasterActor extends AbstractActor {
         - актор роутер
         инициализирует актор хранилище а также пул акторов исполнителей тестов */
 
+    private final ActorRef testers;
+    private final ActorRef storage;
+
+    public MasterActor() {
+        testers = getContext().actorOf(new RoundRobinPool(5).props(Props.create(JSRunnerActor.class)), "t");
+        storage = getContext().actorOf(Props.create(StorageActor.class));
+    }
+
 }

@@ -13,6 +13,7 @@ import akka.http.javadsl.server.AllDirectives;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 
+import akka.http.javadsl.server.Route;
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
@@ -44,6 +45,12 @@ public class JSTester extends AllDirectives {
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> systemq.terminate());
 
+    }
+
+    private Route createRoute() {
+        /*д. Cтроим дерево route и пишем обработчики запросов. */
+        return route(
+        );
     }
 }
 

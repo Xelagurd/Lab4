@@ -4,6 +4,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JSProgram {
@@ -94,4 +95,20 @@ public class JSProgram {
         return null;
     }
 
+    /*
+    public static void main(String[] args) {
+        JSProgram jsProgramm = new JSProgram();
+        jsProgramm.setJsScript("var divideFn = function(a,b) { return a/b} ");
+        Test test = new Test();
+        ArrayList params = new ArrayList();
+        params.add(4);
+        params.add(2);
+        test.setParams(params);
+        jsProgramm.setFunctionName("divideFn");
+        jsProgramm.setTest(test);
+        jsProgramm.setPackageId("1");
+        System.out.println(jsProgramm.run());
+    }
+
+    */
 }

@@ -7,13 +7,16 @@ import akka.actor.Props;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
+import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
+import akka.http.javadsl.server.Route;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import scala.concurrent.Future;
 
-import akka.http.javadsl.server.Route;
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
@@ -50,7 +53,14 @@ public class JSTester extends AllDirectives {
     private Route createRoute() {
         /*д. Cтроим дерево route и пишем обработчики запросов. */
         return route(
-        );
+                post(() -> {
+                    /*е. Когда приходит запрос на запуск теста — запускаем тест и сразу овтечаем константным ответом. */
+                    System.out.println("get Post message");
+                    return entity(Jackson.unmarshaller(JSProgram.class), msg -> {
+                        master.tell(msg, ActorRef.noSender());
+                        return complete("Test started");
+                    });
+                }));
     }
 }
 

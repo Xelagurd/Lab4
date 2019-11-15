@@ -53,6 +53,13 @@ public class JSTester extends AllDirectives {
     private Route createRoute() {
         /*д. Cтроим дерево route и пишем обработчики запросов. */
         return route(
+                get(() ->
+                        /*ё. В случае запроса на получение информации о тесте — используем Putterns.ask и возвращаем Future с ответом */
+                        parameter("packageId", (packageId) -> {
+                            Future<Object> result = Patterns.ask(master,
+                                    new GetMessage(packageId), 5000);
+                            return completeOKWithFuture(result, Jackson.marshaller());
+                        })),
                 post(() -> {
                     /*е. Когда приходит запрос на запуск теста — запускаем тест и сразу овтечаем константным ответом. */
                     System.out.println("get Post message");

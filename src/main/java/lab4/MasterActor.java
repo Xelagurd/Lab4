@@ -23,6 +23,11 @@ public class MasterActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(JSProgram.class, m -> {
+                    for (Test test : m.getTests()) {
+                        JSProgram cur = new JSProgram(m);
+                        cur.setTest(test);
+                        testers.tell(cur, storage);
+                    }
                 })
                 .match(GetMessage.class, req -> storage.tell(
                         req, sender()))

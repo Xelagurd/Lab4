@@ -13,6 +13,9 @@ public class JSTester extends AllDirectives {
     public static void main(String[] args) throws IOException {
         /*а. Создаем actor system*/
         ActorSystem systemq = ActorSystem.create("routes");
+        /*в. После инициализации actor system — создаем актор роутер который в свою очередь создает все дочерние акторы */
+        master = systemq.actorOf(Props.create(MasterActor.class));
+        final Http httpser = Http.get(systemq);
     }
 }
 

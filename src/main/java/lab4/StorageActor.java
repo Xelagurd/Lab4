@@ -18,6 +18,11 @@ public class StorageActor extends AbstractActor {
     public Receive createReceive() {
         return ReceiveBuilder.create()
                 .match(StoreMessage.class, m -> {
+                    if (!storage.containsKey(m.getPackageId())) {
+                        storage.put(m.getPackageId(), new HashMap<>());
+                    }
+                    storage.get(m.getPackageId()).put(m.getTestName(), m.getResult());
+                    System.out.println("Message for if:" + m.getPackageId() + "received");
                 })
                 .match(GetMessage.class, req -> sender().tell(
                         new FullAnswer(req.getPackageId(), storage.get(req.getPackageId())), self())
